@@ -196,55 +196,6 @@ def riproduciMusica(tipo):
 		mixer.music.play()
 
 
-
-def boh(file):
-	respuesta=""
-	rate, data = wav.read(file)
-	vc = np.fft.fft(data)
-	abs_vc = np.absolute(vc)
-	abs_vc = abs_vc[0:int(len(abs_vc)/2)]
-	
-	upper7000 = 0
-	below7000 = 0
-	below5000 = 0
-	below3000 = 0
-	total_energy = np.sum(abs_vc)
-	
-	for i in range(len(abs_vc)) :
-		if i<3000 :
-			below3000 += abs_vc[i]
-			
-		elif i<5000 and i>3000 :
-			below5000 += abs_vc[i]
-			
-		elif i<7000 and i>5000:
-			below7000 += abs_vc[i]
-		elif i>7000:
-			upper7000 += abs_vc[i]
-			
-	upper7000Rate = upper7000 / total_energy
-	below7000Rate = below7000 / total_energy
-	below5000Rate = below5000 / total_energy
-	below3000Rate = below3000 / total_energy
-	
-	print(below3000Rate)
-	print(below5000Rate)
-	print(below7000Rate)
-	print(upper7000Rate)
-	print(upper7000)
-	print(below7000)
-	
-	if below3000Rate + below5000Rate > 0.85 :
-		respuesta="no"
-		print("eh no")
-	elif upper7000<100000000 and below7000<100000000 :
-		respuesta="vuota"
-		print("eh vuota")
-	elif upper7000Rate + below7000Rate + below5000Rate > 0.50 :
-		respuesta="yes"
-		print("eh si")
-	return respuesta
-
 def inviatelegram(stringa) :
     TOKEN = "6669718176:AAEPsciRzWejO4noo_nQiZ3PY1IvE-lWGdw"
     chat_id = "17107215"
