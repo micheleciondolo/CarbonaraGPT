@@ -214,7 +214,6 @@ def ripeti():
 
 def main():
     mixer.init()
-    rispostina = "gisa"
     os.system("pactl set-card-profile " + bluetoothCard + " a2dp-sink")
     while True:
         riproduci(
