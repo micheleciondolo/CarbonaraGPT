@@ -23,6 +23,15 @@ from revChatGPT.V1 import Chatbot
 gpt_response = ""
 os.environ["CHATGPT_BASE_URL"] = "https://ai.fakeopen.com/api/"
 
+#SETTINGS
+bluetoothCard = "bluez_card.16_3C_FC_EB_81_D6"
+mainFolder= "/home/mikilinux/Desktop/ChefGPT"
+modelFolder="vosk-model-small-it-0.22"
+TELEGRAM_TOKEN = "6669718176:AAEPsciRzWejO4noo_nQiZ3PY1IvE-lWGdw"
+TELEGRAM_CHAT_ID = "17107215"
+ACCESS_TOKEN_CHATGPT="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJtaWNoZWxlLmlwcG9saXRpQG1lLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS9hdXRoIjp7InVzZXJfaWQiOiJ1c2VyLTIyTzZMRkpMano1ZzE4VDQzSWVnakwzRiJ9LCJpc3MiOiJodHRwczovL2F1dGgwLm9wZW5haS5jb20vIiwic3ViIjoiYXV0aDB8NjNjMTJiZGExMWQ2ZGU3ODY1MjA4Nzc3IiwiYXVkIjpbImh0dHBzOi8vYXBpLm9wZW5haS5jb20vdjEiLCJodHRwczovL29wZW5haS5vcGVuYWkuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NTcyMzQxNiwiZXhwIjoxNjk2OTMzMDE2LCJhenAiOiJUZEpJY2JlMTZXb1RIdE45NW55eXdoNUU0eU9vNkl0RyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbW9kZWwucmVhZCBtb2RlbC5yZXF1ZXN0IG9yZ2FuaXphdGlvbi5yZWFkIG9yZ2FuaXphdGlvbi53cml0ZSBvZmZsaW5lX2FjY2VzcyJ9.rkWhs5wg63ynnAPDtztFZQnKsnfiwzdJA0ATStJu_g3WxUEyhGkNAiqcL8DG9zi1GJ6LCg85DD3Os_dFX33cYhTxm8hqi-KpvXSJCuH-Qv6f-CFUPU_X8_0Rapg4YOyJAeiOtE9fSHhjsadj0piWAKMeXeLpFYspB0yWaHjCHI22LjppLaJ32Ol0Rh3kX3PbVAa_R9_4zeih-gCUjp9ZoxiFsBQVUMOqihKDckvqSY_SzJKaVCm87mwkmWR3j3oapisvoQ4feKaoMqhvW9PXD4co6FBf__M1EpN5cbqTdJnOo23UI-xVSlKA0X5KnaauEXVt5qh2DsyW1cyP0xZvgQ"
+CONVERSATION_ID_CHATGPT= "938e9ef6-792e-458c-9447-0c0de1b1c604"
+
 def speech_to_text(speech_file):
 
     stt = ""
@@ -34,7 +43,7 @@ def speech_to_text(speech_file):
 
 
 
-    model = Model("/home/mikilinux/Desktop/ChefGPT/vosk-model-small-it-0.22")
+    model = Model(mainFolder +"/+"+modelFolder)
 
     rec = KaldiRecognizer(model, wf.getframerate())
     rec.SetWords(True)
@@ -59,8 +68,8 @@ def speech_to_text(speech_file):
 async def ask_chat_gpt(prompt):
     global gpt_response
     chat  = Chatbot(config={
-    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJtaWNoZWxlLmlwcG9saXRpQG1lLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS9hdXRoIjp7InVzZXJfaWQiOiJ1c2VyLTIyTzZMRkpMano1ZzE4VDQzSWVnakwzRiJ9LCJpc3MiOiJodHRwczovL2F1dGgwLm9wZW5haS5jb20vIiwic3ViIjoiYXV0aDB8NjNjMTJiZGExMWQ2ZGU3ODY1MjA4Nzc3IiwiYXVkIjpbImh0dHBzOi8vYXBpLm9wZW5haS5jb20vdjEiLCJodHRwczovL29wZW5haS5vcGVuYWkuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NTcyMzQxNiwiZXhwIjoxNjk2OTMzMDE2LCJhenAiOiJUZEpJY2JlMTZXb1RIdE45NW55eXdoNUU0eU9vNkl0RyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbW9kZWwucmVhZCBtb2RlbC5yZXF1ZXN0IG9yZ2FuaXphdGlvbi5yZWFkIG9yZ2FuaXphdGlvbi53cml0ZSBvZmZsaW5lX2FjY2VzcyJ9.rkWhs5wg63ynnAPDtztFZQnKsnfiwzdJA0ATStJu_g3WxUEyhGkNAiqcL8DG9zi1GJ6LCg85DD3Os_dFX33cYhTxm8hqi-KpvXSJCuH-Qv6f-CFUPU_X8_0Rapg4YOyJAeiOtE9fSHhjsadj0piWAKMeXeLpFYspB0yWaHjCHI22LjppLaJ32Ol0Rh3kX3PbVAa_R9_4zeih-gCUjp9ZoxiFsBQVUMOqihKDckvqSY_SzJKaVCm87mwkmWR3j3oapisvoQ4feKaoMqhvW9PXD4co6FBf__M1EpN5cbqTdJnOo23UI-xVSlKA0X5KnaauEXVt5qh2DsyW1cyP0xZvgQ"
-  }, conversation_id="938e9ef6-792e-458c-9447-0c0de1b1c604")
+    "access_token": ACCESS_TOKEN_CHATGPT
+  }, conversation_id= CONVERSATION_ID_CHATGPT)
     
     for data in chat.ask(prompt ):
             response = data["message"]
@@ -79,13 +88,11 @@ def record_wav():
     chunk = 4096
     record_secs = 7
     
-    wav_output_filename = '/home/mikilinux/Desktop/ChefGPT/input.wav'
+    wav_output_filename = mainFolder +'/input.wav'
 
     audio = pyaudio.PyAudio()
 
 
-
-    #os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 headset-head-unit")
     print("fine impostazione")
     print("Sto Registrando")
     riproduciMusica("domanda")
@@ -115,9 +122,7 @@ def record_wav():
     wavefile.setframerate(samp_rate)
     wavefile.writeframes(b''.join(frames))
     wavefile.close()
-    #print("impostato a a2dp")
-    #os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 a2dp-sink")
-    #print("fine impostazione")
+
     return
 
 
@@ -128,7 +133,7 @@ def record_wavSINO():
     chunk = 4096
     record_secs = 5
     
-    wav_output_filename = '/home/mikilinux/Desktop/ChefGPT/input2.wav'
+    wav_output_filename = mainFolder +'/input2.wav'
 
     audio = pyaudio.PyAudio()
 
@@ -161,65 +166,60 @@ def record_wavSINO():
     wavefile.setframerate(samp_rate)
     wavefile.writeframes(b''.join(frames))
     wavefile.close()
-    print("a2dp imposto")
-    #os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 a2dp-sink")
-    print("fine impostazione")
+
     return
 
 def riproduci(text):
 	
-	#os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 a2dp-sink")
+	#os.system("pactl set-card-profile "+ bluetoothCard +" a2dp-sink")
 	tts = gTTS(text,lang = "it", slow = False)
-	tts.save('/home/mikilinux/Desktop/ChefGPT/frase.mp3')
-	mixer.music.load("/home/mikilinux/Desktop/ChefGPT/frase.mp3")
+	tts.save('mainFolder +'/frase.mp3')
+	mixer.music.load(mainFolder +"/frase.mp3")
 	mixer.music.play()	  
-	audio=MP3("/home/mikilinux/Desktop/ChefGPT/frase.mp3")
+	audio=MP3(mainFolder +"/frase.mp3")
 	#print(audio.info.length)
 	time.wait(int(audio.info.length)*1000+500)
 
 
 
 def riproduciMusica(tipo):
-	#os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 a2dp-sink")
+	#os.system("pactl set-card-profile "+ bluetoothCard +" a2dp-sink")
 	if tipo == "domanda" :
-		mixer.music.load("/home/mikilinux/Desktop/ChefGPT/ping.mp3")
+		mixer.music.load(mainFolder +"/ping.mp3")
 		mixer.music.play()	      	    
 
 	if tipo == "attesa" :
-		mixer.music.load("/home/mikilinux/Desktop/ChefGPT/wait.mp3")
+		mixer.music.load(mainFolder +"/wait.mp3")
 		mixer.music.play()
 	if tipo == "attesa2" :
-		mixer.music.load("/home/mikilinux/Desktop/ChefGPT/polka.mp3")
+		mixer.music.load(mainFolder +"/polka.mp3")
 		mixer.music.play()
 	if tipo == "continuo" :
-		mixer.music.load("/home/mikilinux/Desktop/ChefGPT/banana.mp3")
+		mixer.music.load(mainFolder +"/banana.mp3")
 		mixer.music.play()
 
 
 def inviatelegram(stringa) :
-    TOKEN = "6669718176:AAEPsciRzWejO4noo_nQiZ3PY1IvE-lWGdw"
-    chat_id = "17107215"
-    message = stringa
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_CHAT_ID}&text={stringa}"
     print(requests.get(url).json())
 
 
 def main():
     mixer.init()
     rispostina="gisa"
-    os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 a2dp-sink")
+    os.system("pactl set-card-profile "+ bluetoothCard +" a2dp-sink")
     while True:
         riproduci("Dimme la tua domanda de cucina zio! Se vuoi parlà de altri cazzi, dimme ALTRO!")
-        os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 headset-head-unit")
+        os.system("pactl set-card-profile "+ bluetoothCard +" headset-head-unit")
         time.wait(1000)
         print("settato")
         record_wav()
-        os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 a2dp-sink")
+        os.system("pactl set-card-profile "+ bluetoothCard +" a2dp-sink")
         riproduci("perfetto! ora aspetta che è na carretta!")
         #riproduciMusica("attesa2")
         boolAltro=False
 
-        question = speech_to_text("/home/mikilinux/Desktop/ChefGPT/input.wav")
+        question = speech_to_text(mainFolder +"/input.wav")
         #question =  input("Please enter something: ")
         print("Domandona: {0}".format(question))
         riproduci("Me hai chiesto: "+question+"! benissimo fratè!")
@@ -231,13 +231,13 @@ def main():
             boolAltro=True
         if boolAltro ==True :
                riproduci("Dimme tutto zio!")
-               os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 headset-head-unit")
+               os.system("pactl set-card-profile "+ bluetoothCard +" headset-head-unit")
                time.wait(1000)
                record_wav()
-               os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 a2dp-sink")
+               os.system("pactl set-card-profile "+ bluetoothCard +" a2dp-sink")
                riproduci("perfetto! ora aspetta che è na carretta!")
                #riproduciMusica("attesa2")
-               question = speech_to_text("/home/mikilinux/Desktop/ChefGPT/input.wav")
+               question = speech_to_text(mainFolder +"/input.wav")
                #question =  input("Please enter something: ")
                print("Domandona: {0}".format(question))               
                riproduci("Me hai chiesto: "+question+"! benissimo fratè!")
@@ -270,11 +270,11 @@ def main():
         else:
         	riproduci(gpt_response)
         riproduci("ho finito zio! se vuoi chiudere l'applicazione dimmi chiudi, altrimenti ricomincio. Se beccamo")
-        os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 headset-head-unit")
+        os.system("pactl set-card-profile "+ bluetoothCard +" headset-head-unit")
         time.wait(1000)
         record_wavSINO()
-        os.system("pactl set-card-profile bluez_card.16_3C_FC_EB_81_D6 a2dp-sink")
-        question2 = speech_to_text("/home/mikilinux/Desktop/ChefGPT/input2.wav")
+        os.system("pactl set-card-profile "+ bluetoothCard +" a2dp-sink")
+        question2 = speech_to_text(mainFolder +"/input2.wav")
         print(question2)
         if question2=="chiudi" :
         	quit()
