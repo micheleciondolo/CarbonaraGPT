@@ -197,8 +197,8 @@ def riproduciMusica(tipo):
 
 
 def inviatelegram(stringa) :
-    TOKEN = "6669718176:AAEPsciRzWejO4noo_nQiZ3PY1IvE-lWGdw"
-    chat_id = "17107215"
+    TOKEN = ""
+    chat_id = ""
     message = stringa
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
     print(requests.get(url).json())
