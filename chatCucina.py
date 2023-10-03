@@ -202,7 +202,16 @@ def riproduciMusica(tipo):
 def inviatelegram(stringa) :
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_CHAT_ID}&text={stringa}"
     print(requests.get(url).json())
-
+    
+def ripeti() :
+    samplerate, data = wav.read(mainFolder +'/input2.wav')
+    maxVolume = 0.5
+    isLoud = False
+    for i in data:
+        if i > maxVolume:
+        isLoud = True
+        break
+    return isLoud
 
 def main():
     mixer.init()
@@ -260,12 +269,11 @@ def main():
             	  riproduci(frase)
             	  notripeti= "INGREDIENTI" in frase.upper() or "ISTRUZIONI" in frase.upper() or frase.startswith('-') or numFrase == 1 or numFrase==len(frasi)
             	  if notripeti == False :
-                  	riproduci("ripeto!")
-                  	riproduci(frase)
-                  	riproduci("hai capito fratè! continuo!")
-
-
-
+                  	riproduci("se non hai capito dimmi ripeti!")
+                    record_wavSINO()
+                    if ripeti() :
+                        riproduci(frase)
+                        riproduci("se non hai capito sticazzi! continuo!")
 
         else:
         	riproduci(gpt_response)
