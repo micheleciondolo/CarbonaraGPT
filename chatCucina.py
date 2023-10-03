@@ -8,6 +8,7 @@ import pyaudio
 import wave
 import json
 import librosa
+import requests
 from scipy.io import wavfile as wav
 from scipy.fftpack import fft
 import numpy as np
@@ -125,7 +126,7 @@ def record_wavSINO():
     chans = 1
     samp_rate = 8000
     chunk = 4096
-    record_secs = 4
+    record_secs = 5
     
     wav_output_filename = '/home/mikilinux/Desktop/ChefGPT/input2.wav'
 
@@ -244,6 +245,12 @@ def boh(file):
 		print("eh si")
 	return respuesta
 
+def inviatelegram(stringa) :
+    TOKEN = "6669718176:AAEPsciRzWejO4noo_nQiZ3PY1IvE-lWGdw"
+    chat_id = "17107215"
+    message = stringa
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+    print(requests.get(url).json())
 
 
 def main():
@@ -288,11 +295,8 @@ def main():
         riproduci("Attendi sennò te sbrocco! Te deve da risponde l'intelligenza artificiale")
         riproduciMusica("attesa")
         asyncio.run(ask_chat_gpt(question+ ". Devi rispondere in stretto dialetto romano però!"))
-	#mixer.music.stop()
-        print("Risposta: {0}".format(gpt_response)) 
-        text_file = open("ricetta.txt", "w")
-        text_file.write("Risposta: {0}".format(gpt_response))
-        text_file.close()
+        print("Risposta: {0}".format(gpt_response))
+        inviatelegram("Ecco la tua ricetta: {0}".format(gpt_response))
         if boolAltro==False:
             
             frasi = gpt_response.split("\n")
@@ -307,7 +311,7 @@ def main():
             	  if notripeti == False :
                   	riproduci("ripeto!")
                   	riproduci(frase)
-                  	riproduci("hai capito fratè! sennò so cazzi tua.")
+                  	riproduci("hai capito fratè! continuo!")
 
 
 
