@@ -6,7 +6,6 @@ import argparse
 import pyaudio
 import wave
 import json
-import librosa
 import requests
 from scipy.io import wavfile as wav
 from scipy.fftpack import fft
@@ -30,6 +29,7 @@ TELEGRAM_TOKEN = "6669718176:AAEPsciRzWejO4noo_nQiZ3PY1IvE-lWGdw"
 TELEGRAM_CHAT_ID = "17107215"
 ACCESS_TOKEN_CHATGPT = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJtaWNoZWxlLmlwcG9saXRpQG1lLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS9hdXRoIjp7InVzZXJfaWQiOiJ1c2VyLTIyTzZMRkpMano1ZzE4VDQzSWVnakwzRiJ9LCJpc3MiOiJodHRwczovL2F1dGgwLm9wZW5haS5jb20vIiwic3ViIjoiYXV0aDB8NjNjMTJiZGExMWQ2ZGU3ODY1MjA4Nzc3IiwiYXVkIjpbImh0dHBzOi8vYXBpLm9wZW5haS5jb20vdjEiLCJodHRwczovL29wZW5haS5vcGVuYWkuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NTcyMzQxNiwiZXhwIjoxNjk2OTMzMDE2LCJhenAiOiJUZEpJY2JlMTZXb1RIdE45NW55eXdoNUU0eU9vNkl0RyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbW9kZWwucmVhZCBtb2RlbC5yZXF1ZXN0IG9yZ2FuaXphdGlvbi5yZWFkIG9yZ2FuaXphdGlvbi53cml0ZSBvZmZsaW5lX2FjY2VzcyJ9.rkWhs5wg63ynnAPDtztFZQnKsnfiwzdJA0ATStJu_g3WxUEyhGkNAiqcL8DG9zi1GJ6LCg85DD3Os_dFX33cYhTxm8hqi-KpvXSJCuH-Qv6f-CFUPU_X8_0Rapg4YOyJAeiOtE9fSHhjsadj0piWAKMeXeLpFYspB0yWaHjCHI22LjppLaJ32Ol0Rh3kX3PbVAa_R9_4zeih-gCUjp9ZoxiFsBQVUMOqihKDckvqSY_SzJKaVCm87mwkmWR3j3oapisvoQ4feKaoMqhvW9PXD4co6FBf__M1EpN5cbqTdJnOo23UI-xVSlKA0X5KnaauEXVt5qh2DsyW1cyP0xZvgQ"
 CONVERSATION_ID_CHATGPT = "938e9ef6-792e-458c-9447-0c0de1b1c604"
+
 
 def speech_to_text(speech_file):
 
@@ -261,9 +261,9 @@ def main():
             )
         )
         print("Risposta: {0}".format(gpt_response))
-        inviatelegram("Ecco la tua ricetta: {0}".format(gpt_response))
-        if boolAltro == False:
 
+        if boolAltro == False:
+            inviatelegram("Ecco la tua ricetta: {0}".format(gpt_response))
             frasi = gpt_response.split("\n")
             numFrase = 0
             for frase in frasi:
