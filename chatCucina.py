@@ -7,6 +7,8 @@ import pyaudio
 import wave
 import json
 import requests
+import subprocess
+import shutil
 from scipy.io import wavfile as wav
 from scipy.fftpack import fft
 import numpy as np
@@ -40,7 +42,7 @@ def speech_to_text(speech_file):
         print("Audio file must be WAV format mono PCM.")
         sys.exit(1)
 
-    model = Model(mainFolder + "/+" + modelFolder)
+    model = Model(mainFolder + "/" + modelFolder)
 
     rec = KaldiRecognizer(model, wf.getframerate())
     rec.SetWords(True)
@@ -86,7 +88,7 @@ def record_wav():
 
     print("fine impostazione")
     print("Sto Registrando")
-    riproduciMusica("domanda")
+    #riproduciMusica("domanda")
     stream = audio.open(
         format=form_1,
         rate=samp_rate,
@@ -132,7 +134,7 @@ def record_wavSINO():
     audio = pyaudio.PyAudio()
 
     print("Sto Registrando")
-    riproduciMusica("domanda")
+    #riproduciMusica("domanda")
 
     stream = audio.open(
         format=form_1,
@@ -169,31 +171,45 @@ def record_wavSINO():
 
 def riproduci(text):
 
-    # os.system("pactl set-card-profile "+ bluetoothCard +" a2dp-sink")
-    tts = gTTS(text, lang="it", slow=False)
-    tts.save(mainFolder + "/frase.mp3")
-    mixer.music.load(mainFolder + "/frase.mp3")
-    mixer.music.play()
-    audio = MP3(mainFolder + "/frase.mp3")
-    # print(audio.info.length)
-    time.wait(int(audio.info.length) * 1000 + 500)
+	mixer.stop()
+	mixer.init()
+	tts = gTTS(text, lang="it", slow=False)
+	tts.save(mainFolder + "/frase.mp3")
+	mixer.music.load(mainFolder + "/frase.mp3")
+	mixer.music.play()
+	audio = MP3(mainFolder + "/frase.mp3")
+	print("durata audio prodotto " +str(audio.info.length))
+	time.delay(int(audio.info.length) * 1000 + 500)
 
+def riproduciRipeti(text):
+
+	mixer.stop()
+	mixer.init()
+	tts = gTTS(text, lang="it", slow=False)
+	tts.save(mainFolder + "/frase2.mp3")
+	mixer.music.load(mainFolder + "/frase2.mp3")
+	mixer.music.play()
+	audio = MP3(mainFolder + "/frase2.mp3")
+	print("durata audio prodotto " +str(audio.info.length))
+	time.delay(int(audio.info.length) * 1000 + 500)
+	
 
 def riproduciMusica(tipo):
-    # os.system("pactl set-card-profile "+ bluetoothCard +" a2dp-sink")
-    if tipo == "domanda":
-        mixer.music.load(mainFolder + "/ping.mp3")
-        mixer.music.play()
-
-    if tipo == "attesa":
-        mixer.music.load(mainFolder + "/wait.mp3")
-        mixer.music.play()
-    if tipo == "attesa2":
-        mixer.music.load(mainFolder + "/polka.mp3")
-        mixer.music.play()
-    if tipo == "continuo":
-        mixer.music.load(mainFolder + "/banana.mp3")
-        mixer.music.play()
+	mixer.stop()
+	mixer.init()
+	if tipo == "domanda":
+		mixer.music.load(mainFolder + "/ping.mp3")
+		mixer.music.play()
+		
+	if tipo == "attesa":
+		mixer.music.load(mainFolder + "/wait.mp3")
+		mixer.music.play()
+	if tipo == "attesa2":
+		mixer.music.load(mainFolder + "/polka.mp3")
+		mixer.music.play()
+	if tipo == "continuo":
+		mixer.music.load(mainFolder + "/banana.mp3")
+		mixer.music.play()
 
 
 def inviatelegram(stringa):
@@ -201,108 +217,105 @@ def inviatelegram(stringa):
     print(requests.get(url).json())
 
 
-def ripeti():
-    samplerate, data = wav.read(mainFolder + "/input2.wav")
-    maxVolume = 0.5
-    isLoud = False
-    for i in data:
-        if i > maxVolume:
-            isLoud = True
-            break
-    return isLoud
+
+def ripeti(stringa):
+	gisa=False
+	esclamazione = speech_to_text(mainFolder + "/input2.wav")
+	if esclamazione == stringa:
+		gisa=True
+	print(esclamazione)
+	return gisa
+	
+def restart():
+
+    print("argv was",sys.argv)
+    print("sys.executable was", sys.executable)
+    print("restart now")
+    os.execv(sys.executable, ['python3'] + sys.argv)
 
 
 def main():
     mixer.init()
-    os.system("pactl set-card-profile " + bluetoothCard + " a2dp-sink")
-    while True:
-        riproduci(
-            "Dimme la tua domanda de cucina zio! Se vuoi parlà de altri cazzi, dimme ALTRO!"
-        )
-        os.system("pactl set-card-profile " + bluetoothCard + " headset-head-unit")
-        time.wait(1000)
-        print("settato")
-        record_wav()
-        os.system("pactl set-card-profile " + bluetoothCard + " a2dp-sink")
-        riproduci("perfetto! ora aspetta che è na carretta!")
-        # riproduciMusica("attesa2")
-        boolAltro = False
-
-        question = speech_to_text(mainFolder + "/input.wav")
-        # question =  input("Please enter something: ")
-        print("Domandona: {0}".format(question))
-        riproduci("Me hai chiesto: " + question + "! benissimo fratè!")
-        # Send text to ChatGPT.
-
-        if question == "chiudi":
-            break
-        if question == "altro":
-            boolAltro = True
-        if boolAltro == True:
-            riproduci("Dimme tutto zio!")
-            os.system("pactl set-card-profile " + bluetoothCard + " headset-head-unit")
-            time.wait(1000)
-            record_wav()
-            os.system("pactl set-card-profile " + bluetoothCard + " a2dp-sink")
-            riproduci("perfetto! ora aspetta che è na carretta!")
-            # riproduciMusica("attesa2")
-            question = speech_to_text(mainFolder + "/input.wav")
-            # question =  input("Please enter something: ")
-            print("Domandona: {0}".format(question))
-            riproduci("Me hai chiesto: " + question + "! benissimo fratè!")
-
-        riproduci(
-            "Attendi sennò te sbrocco! Te deve da risponde l'intelligenza artificiale"
-        )
-        riproduciMusica("attesa")
-        asyncio.run(
-            ask_chat_gpt(
-                question + ". Devi rispondere in stretto dialetto romano però!"
-            )
-        )
-        print("Risposta: {0}".format(gpt_response))
-
-        if boolAltro == False:
-            inviatelegram("Ecco la tua ricetta: {0}".format(gpt_response))
-            frasi = gpt_response.split("\n")
-            numFrase = 0
-            for frase in frasi:
-                notripeti = False
-                numFrase = numFrase + 1
-                if len(frase) < 2:
-                    continue
-                riproduci(frase)
-                notripeti = (
-                    "INGREDIENTI" in frase.upper()
-                    or "ISTRUZIONI" in frase.upper()
-                    or frase.startswith("-")
-                    or numFrase == 1
-                    or numFrase == len(frasi)
-                )
-                if notripeti == False:
-                    riproduci(
-                        "se non hai capito dimmi ripeti! altrimenti non dire nulla"
-                    )
-                    os.system(
-                        "pactl set-card-profile " + bluetoothCard + " headset-head-unit"
-                    )
-                    record_wavSINO()
-                    os.system("pactl set-card-profile " + bluetoothCard + " a2dp-sink")
-                    if ripeti():
-                        riproduci(frase)
-                        riproduci("se non hai capito sticazzi! continuo!")
-
-        else:
-            riproduci(gpt_response)
-        riproduci(
-            "ho finito zio! se vuoi chiudere l'applicazione dimmi chiudi, altrimenti non dire nulla e ricomincio. Se beccamo"
-        )
-        os.system("pactl set-card-profile " + bluetoothCard + " headset-head-unit")
-        time.wait(1000)
-        record_wavSINO()
-        os.system("pactl set-card-profile " + bluetoothCard + " a2dp-sink")
-        if ripeti():
-            quit()
+    subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
+    riproduci("Dimme la tua domanda de cucina zio! Se vuoi parlà de altri cazzi, dimme ALTRO!")
+    riproduciMusica("domanda")
+    subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"headset-head-unit"])
+    print("settato")
+    record_wav()
+    print("risetto")
+    subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
+    time.delay(3000)
+    riproduci("perfetto! ora aspetta che è na carretta!")
+    # riproduciMusica("attesa2")
+    boolAltro = False
+    question = speech_to_text(mainFolder + "/input.wav")
+    print("Domandona: {0}".format(question))
+    riproduci("Me hai chiesto: " + question + "! benissimo fratè!")
+    if question == "altro":
+    	boolAltro = True
+    if boolAltro == True:
+    	riproduci("Dimme tutto zio!")
+    	riproduciMusica("domanda")
+    	subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"headset-head-unit"])
+    	record_wav()
+    	subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
+    	riproduci("perfetto! ora aspetta che è na carretta!")
+    	# riproduciMusica("attesa2")
+    	question = speech_to_text(mainFolder + "/input.wav")
+    	# question =  input("Please enter something: ")
+    	print("Domandona: {0}".format(question))
+    	riproduci("Me hai chiesto: " + question + "! benissimo fratè!")
+    	riproduci("Attendi sennò te sbrocco! Te deve da risponde l'intelligenza artificiale")
+    	riproduciMusica("attesa")
+    	asyncio.run(ask_chat_gpt(question + ". Devi rispondere in stretto dialetto romano però!"))
+    	print("Risposta: {0}".format(gpt_response))
+    if boolAltro == False:
+    	inviatelegram("Ecco la tua ricetta: {0}".format(gpt_response))
+    	frasi = gpt_response.split("\n")
+    	numFrase = 0
+    	frasiDaRipetere=0
+    	stringaFrasi=""
+    	for frase in frasi:
+    		notripeti = False
+    		numFrase = numFrase + 1
+    		if len(frase) < 2:
+    			continue
+    		riproduci(frase)
+    		if(numFrase==len(frasi)):
+    			print("finito")
+    			break
+                	
+    		notripeti = ("INGREDIENTI" in frase.upper()or "ISTRUZIONI" in frase.upper() or frase.endswith(":")or frase.startswith("-")or numFrase == 1 or numFrase == len(frasi))
+    		if notripeti == False:
+    			frasiDaRipetere=frasiDaRipetere+1
+    			stringaFrasi = stringaFrasi +" "+ frase +  " . "
+    			if frasiDaRipetere==3 or numFrase== len(frasi):
+    				frasiDaRipetere=0
+    				riproduciRipeti("se non hai capito dimmi ripeti! te ripeto le ultime.")
+    				time.delay(2000)
+    				riproduciMusica("domanda")
+    				subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"headset-head-unit"])
+    				time.delay(3000)
+    				record_wavSINO()
+    				subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
+    				riproduci("Ok!")
+    				if ripeti("ripeti"):
+    					riproduci(stringaFrasi)
+    					riproduci("se non hai capito sticazzi! continuo lo stesso")
+    		else:
+    			riproduci(gpt_response)
+    			riproduci("ho finito zio! se vuoi chiudere l'applicazione dimmi chiudi, altrimenti non dire nulla e ricomincio. Se beccamo")
+    			riproduciMusica("domanda")
+    			subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"headset-head-unit"])
+    			record_wavSINO()
+    			subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
+    			time.delay(3000)
+    			if ripeti("chiudi"):
+    				riproduci("chiudo!")
+    				quit()
+    			else:
+    				riproduci("riavvio!")
+    				restart()
 
 
 if __name__ == "__main__":
