@@ -32,6 +32,10 @@ TELEGRAM_CHAT_ID = "17107215"
 ACCESS_TOKEN_CHATGPT = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJtaWNoZWxlLmlwcG9saXRpQG1lLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS9hdXRoIjp7InVzZXJfaWQiOiJ1c2VyLTIyTzZMRkpMano1ZzE4VDQzSWVnakwzRiJ9LCJpc3MiOiJodHRwczovL2F1dGgwLm9wZW5haS5jb20vIiwic3ViIjoiYXV0aDB8NjNjMTJiZGExMWQ2ZGU3ODY1MjA4Nzc3IiwiYXVkIjpbImh0dHBzOi8vYXBpLm9wZW5haS5jb20vdjEiLCJodHRwczovL29wZW5haS5vcGVuYWkuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NTcyMzQxNiwiZXhwIjoxNjk2OTMzMDE2LCJhenAiOiJUZEpJY2JlMTZXb1RIdE45NW55eXdoNUU0eU9vNkl0RyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbW9kZWwucmVhZCBtb2RlbC5yZXF1ZXN0IG9yZ2FuaXphdGlvbi5yZWFkIG9yZ2FuaXphdGlvbi53cml0ZSBvZmZsaW5lX2FjY2VzcyJ9.rkWhs5wg63ynnAPDtztFZQnKsnfiwzdJA0ATStJu_g3WxUEyhGkNAiqcL8DG9zi1GJ6LCg85DD3Os_dFX33cYhTxm8hqi-KpvXSJCuH-Qv6f-CFUPU_X8_0Rapg4YOyJAeiOtE9fSHhjsadj0piWAKMeXeLpFYspB0yWaHjCHI22LjppLaJ32Ol0Rh3kX3PbVAa_R9_4zeih-gCUjp9ZoxiFsBQVUMOqihKDckvqSY_SzJKaVCm87mwkmWR3j3oapisvoQ4feKaoMqhvW9PXD4co6FBf__M1EpN5cbqTdJnOo23UI-xVSlKA0X5KnaauEXVt5qh2DsyW1cyP0xZvgQ"
 CONVERSATION_ID_CHATGPT = "938e9ef6-792e-458c-9447-0c0de1b1c604"
 
+def get_profilo_audio():
+	risultino= str(subprocess.check_output(['sh' , mainFolder+'/profiloattivo.sh']))
+	print(risultino)
+	return risultino
 
 def speech_to_text(speech_file):
 
@@ -40,6 +44,7 @@ def speech_to_text(speech_file):
     wf = wave.open(speech_file, "rb")
     if wf.getnchannels() != 1 or wf.getsampwidth() != 2 or wf.getcomptype() != "NONE":
         print("Audio file must be WAV format mono PCM.")
+        print(str(wf.getnchannels()) +" "+ str(wf.getsampwidth())+" "+ str(wf.getcomptype()))
         sys.exit(1)
 
     model = Model(mainFolder + "/" + modelFolder)
@@ -75,98 +80,12 @@ async def ask_chat_gpt(prompt):
     return
 
 
-def record_wav():
-    form_1 = pyaudio.paInt16
-    chans = 1
-    samp_rate = 8000
-    chunk = 4096
-    record_secs = 7
 
-    wav_output_filename = mainFolder + "/input.wav"
-
-    audio = pyaudio.PyAudio()
-
-    print("fine impostazione")
-    print("Sto Registrando")
-    #riproduciMusica("domanda")
-    stream = audio.open(
-        format=form_1,
-        rate=samp_rate,
-        channels=chans,
-        input=True,
-        frames_per_buffer=chunk,
-    )
-
-    frames = []
-
-    # Loop through stream and append audio chunks to frame array.
-    for ii in range(0, int((samp_rate / chunk) * record_secs)):
-        data = stream.read(chunk, exception_on_overflow=False)
-        frames.append(data)
-
-    print("Fine Registrazione")
-
-    # Stop the stream, close it, and terminate the pyaudio instantiation.
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()
-
-    # Save the audio frames as .wav file.
-    wavefile = wave.open(wav_output_filename, "wb")
-    wavefile.setnchannels(chans)
-    wavefile.setsampwidth(audio.get_sample_size(form_1))
-    wavefile.setframerate(samp_rate)
-    wavefile.writeframes(b"".join(frames))
-    wavefile.close()
-
-    return
-
-
-def record_wavSINO():
-    form_1 = pyaudio.paInt16
-    chans = 1
-    samp_rate = 8000
-    chunk = 4096
-    record_secs = 5
-
-    wav_output_filename = mainFolder + "/input2.wav"
-
-    audio = pyaudio.PyAudio()
-
-    print("Sto Registrando")
-    #riproduciMusica("domanda")
-
-    stream = audio.open(
-        format=form_1,
-        rate=samp_rate,
-        channels=chans,
-        input=True,
-        frames_per_buffer=chunk,
-    )
-
-    frames = []
-
-    # Loop through stream and append audio chunks to frame array.
-    for ii in range(0, int((samp_rate / chunk) * record_secs)):
-        data = stream.read(chunk, exception_on_overflow=False)
-        frames.append(data)
-
-    print("Fine Registrazione")
-
-    # Stop the stream, close it, and terminate the pyaudio instantiation.
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()
-
-    # Save the audio frames as .wav file.
-    wavefile = wave.open(wav_output_filename, "wb")
-    wavefile.setnchannels(chans)
-    wavefile.setsampwidth(audio.get_sample_size(form_1))
-    wavefile.setframerate(samp_rate)
-    wavefile.writeframes(b"".join(frames))
-    wavefile.close()
-
-    return
+def recordVeloce(path,secondi):
+	print("Inizio rec")
+	subprocess.run(["arecord", "-d",  secondi  ,"-f","S16_LE",path])
+	#time.delay(int(secondi)*1000+2000)
+	print("Fine rec")
 
 
 def riproduci(text):
@@ -175,6 +94,8 @@ def riproduci(text):
 	mixer.init()
 	tts = gTTS(text, lang="it", slow=False)
 	tts.save(mainFolder + "/frase.mp3")
+	mixer.music.load(mainFolder + "/wake.mp3")
+	mixer.music.play()
 	mixer.music.load(mainFolder + "/frase.mp3")
 	mixer.music.play()
 	audio = MP3(mainFolder + "/frase.mp3")
@@ -199,7 +120,9 @@ def riproduciMusica(tipo):
 	mixer.init()
 	if tipo == "domanda":
 		mixer.music.load(mainFolder + "/ping.mp3")
+		audio = MP3(mainFolder + "/ping.mp3")
 		mixer.music.play()
+		audio = MP3(mainFolder + "/ping.mp3")
 		
 	if tipo == "attesa":
 		mixer.music.load(mainFolder + "/wait.mp3")
@@ -233,20 +156,25 @@ def restart():
     print("restart now")
     os.execv(sys.executable, ['python3'] + sys.argv)
 
+def setta_profilo_audio(stringa):
+	subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,stringa])
+	while stringa not in get_profilo_audio():
+		time.wait(100)
+
 
 def main():
     mixer.init()
-    subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
+    setta_profilo_audio("a2dp-sink")
     riproduci("Dimme la tua domanda de cucina zio! Se vuoi parlà de altri cazzi, dimme ALTRO!")
     riproduciMusica("domanda")
-    subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"headset-head-unit"])
+    setta_profilo_audio("headset-head-unit")
     print("settato")
-    record_wav()
+    #record_wav()
+    recordVeloce(mainFolder+"/input.wav","7")
     print("risetto")
-    subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
-    time.delay(3000)
+    setta_profilo_audio("a2dp-sink")
     riproduci("perfetto! ora aspetta che è na carretta!")
-    # riproduciMusica("attesa2")
+    ## riproduciMusica("attesa2")
     boolAltro = False
     question = speech_to_text(mainFolder + "/input.wav")
     print("Domandona: {0}".format(question))
@@ -256,66 +184,73 @@ def main():
     if boolAltro == True:
     	riproduci("Dimme tutto zio!")
     	riproduciMusica("domanda")
-    	subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"headset-head-unit"])
-    	record_wav()
-    	subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
+    	setta_profilo_audio("headset-head-unit")
+    	recordVeloce(mainFolder+"/input.wav","7")
+    	#record_wav()
+    	setta_profilo_audio("a2dp-sink")
     	riproduci("perfetto! ora aspetta che è na carretta!")
-    	# riproduciMusica("attesa2")
     	question = speech_to_text(mainFolder + "/input.wav")
-    	# question =  input("Please enter something: ")
     	print("Domandona: {0}".format(question))
     	riproduci("Me hai chiesto: " + question + "! benissimo fratè!")
-    	riproduci("Attendi sennò te sbrocco! Te deve da risponde l'intelligenza artificiale")
-    	riproduciMusica("attesa")
-    	asyncio.run(ask_chat_gpt(question + ". Devi rispondere in stretto dialetto romano però!"))
-    	print("Risposta: {0}".format(gpt_response))
+    
+    riproduci("Attendi sennò te sbrocco! Te deve da risponde l'intelligenza artificiale")
+    riproduciMusica("attesa")
+    asyncio.run(ask_chat_gpt(question + ". Devi rispondere in stretto dialetto romano però!"))
+    print("Risposta: {0}".format(gpt_response))
     if boolAltro == False:
     	inviatelegram("Ecco la tua ricetta: {0}".format(gpt_response))
     	frasi = gpt_response.split("\n")
+    	print("numero frasi "+str(len(frasi)))
     	numFrase = 0
     	frasiDaRipetere=0
-    	stringaFrasi=""
+    	arrayFrasi=[]
     	for frase in frasi:
-    		notripeti = False
-    		numFrase = numFrase + 1
+
     		if len(frase) < 2:
     			continue
+    		notripeti = False
+    		numFrase = numFrase + 1
     		riproduci(frase)
+    		print("numero frase "+str(numFrase))
     		if(numFrase==len(frasi)):
     			print("finito")
     			break
                 	
-    		notripeti = ("INGREDIENTI" in frase.upper()or "ISTRUZIONI" in frase.upper() or frase.endswith(":")or frase.startswith("-")or numFrase == 1 or numFrase == len(frasi))
+    		notripeti = ("INGREDIENTI" in frase.upper()or "ISTRUZIONI" in frase.upper() or frase.endswith(":") or frase.startswith("-")or numFrase == 1 or numFrase == len(frasi))
+    		print("da ripetere? " +str(not notripeti))
     		if notripeti == False:
     			frasiDaRipetere=frasiDaRipetere+1
-    			stringaFrasi = stringaFrasi +" "+ frase +  " . "
+    			arrayFrasi.append(frase)
     			if frasiDaRipetere==3 or numFrase== len(frasi):
     				frasiDaRipetere=0
     				riproduciRipeti("se non hai capito dimmi ripeti! te ripeto le ultime.")
-    				time.delay(2000)
+    				
     				riproduciMusica("domanda")
-    				subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"headset-head-unit"])
-    				time.delay(3000)
-    				record_wavSINO()
-    				subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
+    				setta_profilo_audio("headset-head-unit")
+    				recordVeloce(mainFolder+"/input2.wav","5")
+    				#record_wavSINO()
+    				setta_profilo_audio("a2dp-sink")
     				riproduci("Ok!")
     				if ripeti("ripeti"):
-    					riproduci(stringaFrasi)
+    					for frasetta in arrayFrasi:
+    						riproduci(frasetta)
+    					arrayFrasi=[]
     					riproduci("se non hai capito sticazzi! continuo lo stesso")
-    		else:
-    			riproduci(gpt_response)
-    			riproduci("ho finito zio! se vuoi chiudere l'applicazione dimmi chiudi, altrimenti non dire nulla e ricomincio. Se beccamo")
-    			riproduciMusica("domanda")
-    			subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"headset-head-unit"])
-    			record_wavSINO()
-    			subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,"a2dp-sink"])
-    			time.delay(3000)
-    			if ripeti("chiudi"):
-    				riproduci("chiudo!")
-    				quit()
-    			else:
-    				riproduci("riavvio!")
-    				restart()
+    else:
+    	riproduci(gpt_response)
+    	
+    riproduci("ho finito zio! se vuoi chiudere l'applicazione dimmi chiudi, altrimenti non dire nulla e ricomincio. Se beccamo")
+    riproduciMusica("domanda")
+    setta_profilo_audio("headset-head-unit")
+    recordVeloce(mainFolder+"/input2.wav","5")
+    #record_wavSINO()
+    setta_profilo_audio("a2dp-sink")
+    	
+    if ripeti("chiudi"):
+    	sys.exit("chiusa con successo")
+    else:
+    	main()
+    	
 
 
 if __name__ == "__main__":
