@@ -11,7 +11,7 @@ hardware:
 - tanta pazienza
 
   Software:
-- Se me lo chiedete posso pure passarvi la mia img già installata.
+Se me lo chiedete posso pure passarvi la mia img già installata.
 Altrimenti vi consiglio:
 - Debian 12
 - python3
@@ -20,4 +20,9 @@ Altrimenti vi consiglio:
 
 
 Basta che lanciate il file chatCucina.py (python3 chatCucina.py), vedete se servono altre cose, compilate la sezione settings in alto nel file python e tutto DOVREBBE funzionare.
+Nella cartella dovete aggiungere la cartella italiana di vosk scaricabile qui https://alphacephei.com/vosk/models/vosk-model-small-it-0.22.zip chiamatela "vosk-model-small-it-0.22".
+nella cartella di vosk cambiate la configurazione in modo che non sia una vera carretta : beam=1 e riducete la max-active!
+
+
+
 Buone ricette.
