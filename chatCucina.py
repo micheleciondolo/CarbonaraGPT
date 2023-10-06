@@ -3,19 +3,12 @@ import io
 import sys
 import asyncio
 import argparse
-import pyaudio
 import wave
 import json
 import requests
 import subprocess
-import shutil
-from scipy.io import wavfile as wav
-from scipy.fftpack import fft
-import numpy as np
-from mutagen.mp3 import MP3
+import time
 from vosk import Model, KaldiRecognizer, SetLogLevel
-from pygame import mixer
-from pygame import time
 from gtts import gTTS
 from revChatGPT.V1 import Chatbot
 
@@ -84,56 +77,28 @@ async def ask_chat_gpt(prompt):
 def recordVeloce(path,secondi):
 	print("Inizio rec")
 	subprocess.run(["arecord", "-d",  secondi  ,"-f","S16_LE",path])
-	#time.delay(int(secondi)*1000+2000)
 	print("Fine rec")
 
-
+def riproduciVeloce(path):
+	subprocess.run(["mpg123", "play",  path])
 def riproduci(text):
 
-	mixer.stop()
-	mixer.init()
 	tts = gTTS(text, lang="it", slow=False)
 	tts.save(mainFolder + "/frase.mp3")
-	mixer.music.load(mainFolder + "/wake.mp3")
-	mixer.music.play()
-	mixer.music.load(mainFolder + "/frase.mp3")
-	mixer.music.play()
-	audio = MP3(mainFolder + "/frase.mp3")
-	print("durata audio prodotto " +str(audio.info.length))
-	time.delay(int(audio.info.length) * 1000 + 500)
+	riproduciVeloce(mainFolder + "/frase.mp3")
 
 def riproduciRipeti(text):
 
-	mixer.stop()
-	mixer.init()
 	tts = gTTS(text, lang="it", slow=False)
 	tts.save(mainFolder + "/frase2.mp3")
-	mixer.music.load(mainFolder + "/frase2.mp3")
-	mixer.music.play()
-	audio = MP3(mainFolder + "/frase2.mp3")
-	print("durata audio prodotto " +str(audio.info.length))
-	time.delay(int(audio.info.length) * 1000 + 500)
+	riproduciVeloce(mainFolder + "/frase2.mp3")
 	
 
 def riproduciMusica(tipo):
-	mixer.stop()
-	mixer.init()
 	if tipo == "domanda":
-		mixer.music.load(mainFolder + "/ping.mp3")
-		audio = MP3(mainFolder + "/ping.mp3")
-		mixer.music.play()
-		audio = MP3(mainFolder + "/ping.mp3")
-		
+		riproduciVeloce(mainFolder + "/ping.mp3")
 	if tipo == "attesa":
-		mixer.music.load(mainFolder + "/wait.mp3")
-		mixer.music.play()
-	if tipo == "attesa2":
-		mixer.music.load(mainFolder + "/polka.mp3")
-		mixer.music.play()
-	if tipo == "continuo":
-		mixer.music.load(mainFolder + "/banana.mp3")
-		mixer.music.play()
-
+		riproduciVeloce(mainFolder + "/wait.mp3")
 
 def inviatelegram(stringa):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_CHAT_ID}&text={stringa}"
@@ -159,22 +124,20 @@ def restart():
 def setta_profilo_audio(stringa):
 	subprocess.run(["pactl", "set-card-profile",  bluetoothCard  ,stringa])
 	while stringa not in get_profilo_audio():
-		time.wait(100)
+		time.sleep(100)
 
 
 def main():
-    mixer.init()
+
     setta_profilo_audio("a2dp-sink")
     riproduci("Dimme la tua domanda de cucina zio! Se vuoi parlà de altri cazzi, dimme ALTRO!")
     riproduciMusica("domanda")
     setta_profilo_audio("headset-head-unit")
-    print("settato")
-    #record_wav()
+
     recordVeloce(mainFolder+"/input.wav","7")
     print("risetto")
     setta_profilo_audio("a2dp-sink")
     riproduci("perfetto! ora aspetta che è na carretta!")
-    ## riproduciMusica("attesa2")
     boolAltro = False
     question = speech_to_text(mainFolder + "/input.wav")
     print("Domandona: {0}".format(question))
@@ -186,7 +149,6 @@ def main():
     	riproduciMusica("domanda")
     	setta_profilo_audio("headset-head-unit")
     	recordVeloce(mainFolder+"/input.wav","7")
-    	#record_wav()
     	setta_profilo_audio("a2dp-sink")
     	riproduci("perfetto! ora aspetta che è na carretta!")
     	question = speech_to_text(mainFolder + "/input.wav")
@@ -228,7 +190,6 @@ def main():
     				riproduciMusica("domanda")
     				setta_profilo_audio("headset-head-unit")
     				recordVeloce(mainFolder+"/input2.wav","5")
-    				#record_wavSINO()
     				setta_profilo_audio("a2dp-sink")
     				riproduci("Ok!")
     				if ripeti("ripeti"):
