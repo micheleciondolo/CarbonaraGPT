@@ -42,5 +42,13 @@ Nella cartella dovete aggiungere la cartella italiana di vosk scaricabile qui ht
 nella cartella di vosk cambiate la configurazione in modo che non sia una vera carretta : beam=1 e riducete la max-active!
 
 
+IMPORTANTISSIMO: dopo aver installato revChatGPT andate su /usr/local/lib/python3.x/dist-packages/revChatGPT e modificate il file V1.py aggiungendo la seguente stringa dopo le import e le from..
+
+os.environ["CHATGPT_BASE_URL"]="https://ai.fakeopen.com/api/"
+
+
+altrimenti non funziona una mazza.
+
+
 
 Buone ricette.
