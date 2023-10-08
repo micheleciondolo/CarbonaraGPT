@@ -49,6 +49,8 @@ os.environ["CHATGPT_BASE_URL"]="https://ai.fakeopen.com/api/"
 
 altrimenti non funziona una mazza.
 
+mi rendo conto che questa guida è scritta con i piedi, se vi servono ulteriori delucidazioni potete scrivermi sul forum.
+
 
 
 Buone ricette.
