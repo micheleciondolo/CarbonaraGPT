@@ -54,3 +54,50 @@ mi rendo conto che questa guida è scritta con i piedi, se vi servono ulteriori 
 
 
 Buone ricette.
+
+
+Here are the translated instructions in English:
+
+What you need:
+
+Hardware:
+
+    Raspberry Pi 3B minimum (it's not great, but it works).
+    Power supply of at least 3A!!
+    Bluetooth speaker with a microphone, like this one: link.
+    Lots of patience.
+
+Software:
+
+If you ask me, I can even pass you my pre-installed image. Otherwise, I recommend:
+
+    Debian 12
+    Python 3
+    mpg123
+    All the Python libraries you need: vosk, gTTs, revChatGPT, and so on.
+
+Just launch the file chatCucina.py (python3 chatCucina.py), see if you need anything else, fill out the settings section at the top of the Python file, and everything SHOULD work. The settings section is filled out like this:
+
+    bluetoothCard = the name of the Bluetooth card found by running pactl list as the card name.
+    mainFolder = the main folder where all the files, including chatCucina.py, are located.
+    modelFolder = "vosk-model-small-it-0.22"
+
+Chat on Telegram with carbonaragpt_bot, then read a guide and get:
+
+    TELEGRAM_TOKEN and TELEGRAM_CHAT_ID
+
+For Chat GPT, create a conversation in your browser. Then, get the Conversation ID from the conversation link and the Access Token through the link here. Then fill out ACCESS_TOKEN_CHATGPT and CONVERSATION_ID_CHATGPT.
+
+In the folder, add the Italian folder of Vosk, which you can download here link, and name it "vosk-model-small-it-0.22". In the Vosk folder, change the configuration so it's not too heavy: beam=1 and reduce max-active!
+
+VERY IMPORTANT: After installing revChatGPT, go to /usr/local/lib/python3.x/dist-packages/revChatGPT and modify the V1.py file by adding the following string after the imports and from statements:
+
+
+
+os.environ["CHATGPT_BASE_URL"]="https://ai.fakeopen.com/api/"
+
+Otherwise, it won't work at all.
+
+I realize that this guide is written a bit roughly. If you need further clarification, you can write to me on the forum.
+
+Happy cooking!
