@@ -19,11 +19,10 @@ os.environ["CHATGPT_BASE_URL"] = "https://ai.fakeopen.com/api/"
 # SETTINGS
 bluetoothCard = ""
 mainFolder = ""
-modelFolder = ""
-TELEGRAM_TOKEN = ""
+modelFolder = "vosk-model-small-it-0.22"
+TELEGRAM_TOKEN = "
 TELEGRAM_CHAT_ID = ""
 ACCESS_TOKEN_CHATGPT = ""
-CONVERSATION_ID_CHATGPT = ""
 
 def get_profilo_audio():
 	risultino= str(subprocess.check_output(['sh' , mainFolder+'/profiloattivo.sh']))
