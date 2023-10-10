@@ -1,5 +1,12 @@
 CarbonaraGPT Interface for Cooking Purposes.
 
+PLEASE READ THE SIMPLE GUIDE AT THE BOTTOM IF YOU ARE LAZY!!!
+
+
+
+
+-------------
+
 Cosa serve :
 
 hardware:
