@@ -107,8 +107,8 @@ Happy cooking!
 
 
 GUIDA SEMPLICE:
-1) scaricate ed estraete questo archivio tar.gz (non vi spiegherò come farlo) e scrivete il file img su una sd da 16gb CLASSE 10.
-2) entrate username mikilinux password mikilinux 
+1) scaricate ed estraete questo archivio tar.gz (non vi spiegherò come farlo) e scrivete il file img su una sd da 16gb CLASSE 10. https://mega.nz/file/sf4hAb5D#21KfqH9WriBE9-iWACaO1qlf3scI6gP1uy0FWXLBtTg
+2) accendete il raspberry connessi a un monitor, entrate username mikilinux password mikilinux in LXQT, selezionate la vostra rete wireless.
 3) andate su una cartella random e copiate il codice da qui facendo "git clone https://github.com/micheleciondolo/CarbonaraGPT"
 4) comprate una cassa tipo questa https://www.amazon.it/dp/B0B8X6FLVZ?psc=1&ref=ppx_yo2ov_dt_b_product_details
 5) collegate la vostra cassa tramite blueman-manager
@@ -120,8 +120,8 @@ GUIDA SEMPLICE:
 
 
 SIMPLE GUIDE:
-1) Download and extract this tar.gz archive (I won't explain how to do it) and write the img file to a 16GB CLASS 10 SD card.
-2) Log in with the username "mikilinux" and password "mikilinux."
+1) Download and extract this tar.gz archive (I won't explain how to do it) and write the img file to a 16GB CLASS 10 SD card. https://mega.nz/file/sf4hAb5D#21KfqH9WriBE9-iWACaO1qlf3scI6gP1uy0FWXLBtTg
+2) start the raspberry after connecting it to a monitor, Log in with the username "mikilinux" and password "mikilinux" on LXQT, select your wireless network.
 3) Navigate to a random folder and copy the code from here by running "git clone https://github.com/micheleciondolo/CarbonaraGPT."
 4) Purchase a speaker like this one: https://www.amazon.it/dp/B0B8X6FLVZ?psc=1&ref=ppx_yo2ov_dt_b_product_details
 5) Connect your speaker using blueman-manager.
