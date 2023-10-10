@@ -1,4 +1,4 @@
-<<<<<CarbonaraGPT Interface for Cooking Purposes.
+CarbonaraGPT Interface for Cooking Purposes.
 
 Cosa serve :
 
@@ -95,3 +95,30 @@ Otherwise, it won't work at all.
 I realize that this guide is written a bit roughly. If you need further clarification, you can write to me on the forum.
 
 Happy cooking!
+
+
+
+
+GUIDA SEMPLICE:
+1) scaricate ed estraete questo archivio tar.gz (non vi spiegherò come farlo) e scrivete il file img su una sd da 16gb CLASSE 10.
+2) entrate username mikilinux password mikilinux 
+3) andate su una cartella random e copiate il codice da qui facendo "git clone https://github.com/micheleciondolo/CarbonaraGPT"
+4) comprate una cassa tipo questa https://www.amazon.it/dp/B0B8X6FLVZ?psc=1&ref=ppx_yo2ov_dt_b_product_details
+5) collegate la vostra cassa tramite blueman-manager
+6) compilate la sezione settings come sopra..
+7) scaricate la cartella di vosk da qui https://alphacephei.com/vosk/models/vosk-model-small-it-0.22.zip, mettetela nella cartella CarbonaraGPT
+8) spostate model.conf da CarbonaraGPT a CarbonaraGPT/vosk-moel-small-it-0.22/conf sostituendo il precedente.
+9) lanciate facendo python3 chatCucina.py dalla cartella CarbonaraGPT.
+
+
+
+SIMPLE GUIDE:
+1) Download and extract this tar.gz archive (I won't explain how to do it) and write the img file to a 16GB CLASS 10 SD card.
+2) Log in with the username "mikilinux" and password "mikilinux."
+3) Navigate to a random folder and copy the code from here by running "git clone https://github.com/micheleciondolo/CarbonaraGPT."
+4) Purchase a speaker like this one: https://www.amazon.it/dp/B0B8X6FLVZ?psc=1&ref=ppx_yo2ov_dt_b_product_details
+5) Connect your speaker using blueman-manager.
+6) Configure the settings section as described above.
+7) Download the Vosk folder from here: https://alphacephei.com/vosk/models/vosk-model-small-it-0.22.zip, and place it in the CarbonaraGPT folder.
+8) Move model.conf from CarbonaraGPT to CarbonaraGPT/vosk-model-small-it-0.22/conf, replacing the previous one.
+9) Launch by running "python3 chatCucina.py" from the CarbonaraGPT folder.
