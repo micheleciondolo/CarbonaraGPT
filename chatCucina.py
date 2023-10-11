@@ -22,6 +22,9 @@ mainFolder = ""
 TELEGRAM_TOKEN = ""
 TELEGRAM_CHAT_ID = ""
 ACCESS_TOKEN_CHATGPT = ""
+CONVERSATION_ID_CHATGPT=""
+
+
 DIALETTO_PARLATO="romano" #OPZIONI romano/napoletano/sardo/pugliese/english
 
 
