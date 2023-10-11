@@ -29,9 +29,6 @@ DIALETTO_PARLATO="romano" #OPZIONI romano/napoletano/sardo/pugliese/english
 
 
 
-#inizializzo frasi
-intro = codice_lang=carretta=dimmitutto=attendi=mehaichiesto1=mehaichiesto2=ripetiz=sticazzi=finito=modelFolder = ingredientiString=istruzioniString=altroString = ripetiString=chiudiString=devirisp1=devirisp2=ecco=""
-
 
 def get_profilo_audio():
 	risultino= str(subprocess.check_output(['sh' , mainFolder+'/profiloattivo.sh']))
@@ -108,6 +105,7 @@ def riproduci(text):
 
 
 def getFrasi(dialetto):
+    global intro,carretta,dimmitutto,attendi,mehaichiesto1,mehaichiesto2,ripetiz,sticazzi,finito
     
     if dialetto == "romano":
         intro = "Dimme la tua domanda de cucina zio! Se vuoi parlà de altri cazzi, dimme ALTRO!"
@@ -165,7 +163,7 @@ def getFrasi(dialetto):
 
 
 def getGlobalFrasi(dialetto):
-    
+    global ingredientiString,istruzioniString,altroString,ripetiString,chiudiString,devirisp1,devirisp2,ecco,modelFolder,codice_lang
     if dialetto !="english" :
         ingredientiString="INGREDIENTI"
         istruzioniString="ISTRUZIONI"
