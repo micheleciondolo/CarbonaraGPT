@@ -2,6 +2,7 @@ CarbonaraGPT Interface for Cooking Purposes.
 
 PLEASE READ THE SIMPLE GUIDE AT THE BOTTOM IF YOU ARE LAZY!!!
 
+FOR ANY QUESTION CONTACT ME or open issue.
 
 
 
@@ -31,7 +32,8 @@ Software: Se me lo chiedete posso pure passarvi la mia img già installata. Altr
 
 Basta che lanciate il file chatCucina.py (python3 chatCucina.py), vedete se servono altre cose, compilate la sezione settings in alto nel file python e tutto DOVREBBE funzionare. la sezione setttings si compila cosi:
 
-bluetoothCard = nome della scheda bluetooth trovate facendo pactl list , come nome della scheda. mainFolder = cartella principale all'interno della quale ci sono tutti i file tra cui chatCucina.py modelFolder = "vosk-model-small-it-0.22"
+bluetoothCard = nome della scheda bluetooth trovate facendo pactl list , come nome della scheda.
+mainFolder = cartella principale all'interno della quale ci sono tutti i file tra cui chatCucina.py 
 
 parlate su telegram con carbonaragpt_bot , poi leggete una guida e ricavatevi:
 
@@ -81,7 +83,6 @@ Just launch the file chatCucina.py (python3 chatCucina.py), see if you need anyt
 
     bluetoothCard = the name of the Bluetooth card found by running pactl list as the card name.
     mainFolder = the main folder where all the files, including chatCucina.py, are located.
-    modelFolder = "vosk-model-small-it-0.22"
 
 Chat on Telegram with carbonaragpt_bot, then read a guide and get:
 
@@ -126,6 +127,6 @@ SIMPLE GUIDE:
 4) Purchase a speaker like this one: https://www.amazon.it/dp/B0B8X6FLVZ?psc=1&ref=ppx_yo2ov_dt_b_product_details
 5) Connect your speaker using blueman-manager.
 6) Configure the settings section as described above.
-7) Download the Vosk folder from here: https://alphacephei.com/vosk/models/vosk-model-small-it-0.22.zip, and place it in the CarbonaraGPT folder.
-8) Move model.conf from CarbonaraGPT to CarbonaraGPT/vosk-model-small-it-0.22/conf, replacing the previous one.
+7) Download the Vosk folder from here: https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip, and place it in the CarbonaraGPT folder.
+8) Move model.conf from CarbonaraGPT to CarbonaraGPT/vosk-model-small-en-us-0.15/conf, replacing the previous one.
 9) Launch by running "python3 chatCucina.py" from the CarbonaraGPT folder.
