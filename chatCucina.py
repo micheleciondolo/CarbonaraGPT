@@ -181,7 +181,7 @@ def getGlobalFrasi(dialetto):
         altroString = "other"
         ripetiString="repeat"
         chiudiString="close"
-        devirisp1=". Please answer in strict london slang "
+        devirisp1=". Please answer in strict london slang, with Ingredients and steps "
         devirisp2=" bro!"
         ecco="Here is your recipe:"
         modelFolder="vosk-model-small-en-us-0.15"
