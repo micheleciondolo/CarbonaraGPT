@@ -171,11 +171,12 @@ def getGlobalFrasi(dialetto):
         ripetiString="ripeti"
         chiudiString="chiudi"
         devirisp1=". Devi rispondere in stretto dialetto "
-        devirisp2=" però!"
+        devirisp2=", con Ingredienti e la lista dei passaggi però!"
         ecco="Ecco la tua ricetta:"
         modelFolder="vosk-model-small-it-0.22"
         codice_lang="it"
     elif dialetto == "english":
+        DIALETTO_PARLATO=""
         ingredientiString="INGREDIENTS"
         istruzioniString="INSTRUCTIONS"
         altroString = "other"
