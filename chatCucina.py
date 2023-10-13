@@ -25,6 +25,9 @@ ACCESS_TOKEN_CHATGPT = ""
 CONVERSATION_ID_CHATGPT=""
 
 
+PERSONE_A_CENA=2
+
+
 DIALETTO_PARLATO="romano" #OPZIONI romano/napoletano/sardo/pugliese/english
 
 
@@ -171,7 +174,7 @@ def getGlobalFrasi(dialetto):
         ripetiString="ripeti"
         chiudiString="chiudi"
         devirisp1=". Devi rispondere in stretto dialetto "
-        devirisp2=", con Ingredienti e la lista dei passaggi però!"
+        devirisp2=", con Ingredienti con i dosaggi per "+PERSONE_A_CENA+" e la lista dei passaggi però!"
         ecco="Ecco la tua ricetta:"
         modelFolder="vosk-model-small-it-0.22"
         codice_lang="it"
@@ -182,7 +185,7 @@ def getGlobalFrasi(dialetto):
         altroString = "other"
         ripetiString="repeat"
         chiudiString="close"
-        devirisp1=". Please answer in strict london slang, with Ingredients and steps "
+        devirisp1=". Please answer in strict london slang, with Ingredients in doses for "+PERSONE_A_CENA+" and steps "
         devirisp2=" bro!"
         ecco="Here is your recipe:"
         modelFolder="vosk-model-small-en-us-0.15"
