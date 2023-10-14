@@ -1,5 +1,5 @@
 CarbonaraGPT Interface for Cooking Purposes.
-
+ADDED NAPOLETANO , PUGLIESE, SARDO AND ENGLISH COCKNEY! OMG!
 PLEASE READ THE SIMPLE GUIDE AT THE BOTTOM IF YOU ARE LAZY!!!
 
 FOR ANY QUESTION CONTACT ME or open issue.
@@ -30,8 +30,14 @@ Software: Se me lo chiedete posso pure passarvi la mia img già installata. Altr
 
     tutte le liberie python che servono : vosk, gTTs, revChatGPT e via dicendo.
 
-Basta che lanciate il file chatCucina.py (python3 chatCucina.py), vedete se servono altre cose, compilate la sezione settings in alto nel file python e tutto DOVREBBE funzionare. la sezione setttings si compila cosi:
+Per prima cosa installate PipeWire e rendetelo il default per la gestione audio sul vostro raspberry (disattivate PulseAudio)
+Poi collegate la cassa bluetooth tramite blueman-manager.
+tramite "pactl list" dovreste vederla e dovrebbe avere 2 profili audio disponibili: a2dp-sink e headset-head-unit
+Se non dovessero chiamarsi così è un casino. 
 
+
+Poi basta che lanciate il file chatCucina.py (python3 chatCucina.py), vedete se servono altre cose, compilate la sezione settings in alto nel file python e tutto DOVREBBE funzionare. la sezione setttings si compila cosi:
+DIALETTO PARLATO = dialetto che deve usare l'AI, non quello che dovete parlare voi, voi potete parlare solo italiano o inglese. Lei può rispondere in romano/napoletano/inglese (cockney)/sardo e pugliese. Scegliete una di queste stringhe e impostatela.
 bluetoothCard = nome della scheda bluetooth trovate facendo pactl list , come nome della scheda.
 mainFolder = cartella principale all'interno della quale ci sono tutti i file tra cui chatCucina.py 
 
@@ -49,7 +55,7 @@ os.environ["CHATGPT_BASE_URL"]="https://ai.fakeopen.com/api/"
 
 altrimenti non funziona una mazza.
 
-mi rendo conto che questa guida è scritta con i piedi, se vi servono ulteriori delucidazioni potete scrivermi sul forum.
+mi rendo conto che questa guida è scritta con i piedi, se vi servono ulteriori delucidazioni potete scrivermi su telegram @Luzzo1989.
 
 Buone ricette.
 
@@ -57,76 +63,61 @@ Buone ricette.
 --------------------------------------------------
 --------------------------------------------------
 
-
-
-Here are the translated instructions in English:
+ENGLISH VERSION:
 
 What you need:
 
 Hardware:
 
-    Raspberry Pi 3B minimum (it's not great, but it works).
+    Raspberry Pi 3B at a minimum (it's not great, but it works)
+    
     Power supply of at least 3A!!
-    Bluetooth speaker with a microphone, like this one: link.
-    Lots of patience.
+    
+    Bluetooth speaker with a built-in microphone like this one: Link to Amazon
+    
+    Lots of patience
 
-Software:
-
-If you ask me, I can even pass you my pre-installed image. Otherwise, I recommend:
-
+Software: If you ask, I can provide you with my pre-installed image. Otherwise, I recommend:
+    
     Debian 12
-    Python 3
+    
+    Python3
+    
     mpg123
-    All the Python libraries you need: vosk, gTTs, revChatGPT, and so on.
 
-Just launch the file chatCucina.py (python3 chatCucina.py), see if you need anything else, fill out the settings section at the top of the Python file, and everything SHOULD work. The settings section is filled out like this:
+    All the necessary Python libraries: vosk, gTTs, revChatGPT, and so on.
 
-    bluetoothCard = the name of the Bluetooth card found by running pactl list as the card name.
-    mainFolder = the main folder where all the files, including chatCucina.py, are located.
+First, install PipeWire and make it the default for audio management on your Raspberry Pi (disable PulseAudio). Then, connect the Bluetooth speaker via blueman-manager. By using "pactl list," you should see it, and it should have 2 available audio profiles: a2dp-sink and headset-head-unit. If they are named differently, it's a mess.
 
-Chat on Telegram with carbonaragpt_bot, then read a guide and get:
+Then, just run the file chatCucina.py (python3 chatCucina.py). Check if you need anything else, fill out the settings section at the top of the Python file, and everything SHOULD work. The settings section is filled out as follows:
 
-    TELEGRAM_TOKEN and TELEGRAM_CHAT_ID
+DIALETTO_PARLATO = the dialect that the AI should use, not the one you should speak. You can only speak Italian or English. It can respond in Roman/Neapolitan/English (Cockney)/Sardinian and Apulian. Choose one of these strings and set it.
 
-For Chat GPT, create a conversation in your browser. Then, get the Conversation ID from the conversation link and the Access Token through the link here. Then fill out ACCESS_TOKEN_CHATGPT and CONVERSATION_ID_CHATGPT.
+bluetoothCard = the name of the Bluetooth card found by running pactl list, as the card's name.
 
-In the folder, add the Italian folder of Vosk, which you can download here link, and name it "vosk-model-small-it-0.22". In the Vosk folder, change the configuration so it's not too heavy: beam=1 and reduce max-active!
+mainFolder = the main folder in which all the files, including chatCucina.py, are located.
 
-VERY IMPORTANT: After installing revChatGPT, go to /usr/local/lib/python3.x/dist-packages/revChatGPT and modify the V1.py file by adding the following string after the imports and from statements:
+Talk on Telegram with carbonaragpt_bot, then read a guide and obtain:
 
+TELEGRAM_TOKEN and TELEGRAM_CHAT_ID
 
+For chat GPT, create a conversation from your browser. Then, get the Conversation ID from the conversation link and access token through the link here. Then, fill in ACCESS_TOKEN_CHATGPT and CONVERSATION_ID_CHATGPT.
+
+In the folder, add the English folder of vosk, which you can download here https://alphacephei.com/vosk/models/vosk-model-small-en-0.15.zip , and name it "vosk-model-small-en-0.15". In the vosk folder, change the configuration so that it's not too strict: set beam=1 and reduce the max-active!
+
+EXTREMELY IMPORTANT: After installing revChatGPT, go to /usr/local/lib/python3.x/dist-packages/revChatGPT and modify the file V1.py by adding the following string after the imports:
 
 os.environ["CHATGPT_BASE_URL"]="https://ai.fakeopen.com/api/"
 
 Otherwise, it won't work at all.
 
-I realize that this guide is written a bit roughly. If you need further clarification, you can write to me on the forum.
+I realize that this guide is not very well-written. If you need further clarification, feel free to write to me on telegram @Luzzo1989
 
 Happy cooking!
 
+
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-GUIDA SEMPLICE:
-1) scaricate ed estraete questo archivio tar.gz (non vi spiegherò come farlo) e scrivete il file img su una sd da 16gb CLASSE 10. https://mega.nz/file/sf4hAb5D#21KfqH9WriBE9-iWACaO1qlf3scI6gP1uy0FWXLBtTg
-2) accendete il raspberry connessi a un monitor, entrate username mikilinux password mikilinux in LXQT, selezionate la vostra rete wireless.
-3) andate su una cartella random e copiate il codice da qui facendo "git clone https://github.com/micheleciondolo/CarbonaraGPT"
-4) comprate una cassa tipo questa https://www.amazon.it/dp/B0B8X6FLVZ?psc=1&ref=ppx_yo2ov_dt_b_product_details
-5) collegate la vostra cassa tramite blueman-manager
-6) compilate la sezione settings come sopra..
-7) scaricate la cartella di vosk da qui https://alphacephei.com/vosk/models/vosk-model-small-it-0.22.zip, mettetela nella cartella CarbonaraGPT
-8) spostate model.conf da CarbonaraGPT a CarbonaraGPT/vosk-moel-small-it-0.22/conf sostituendo il precedente.
-9) lanciate facendo python3 chatCucina.py dalla cartella CarbonaraGPT.
-
-
-
-SIMPLE GUIDE:
-1) Download and extract this tar.gz archive (I won't explain how to do it) and write the img file to a 16GB CLASS 10 SD card. https://mega.nz/file/sf4hAb5D#21KfqH9WriBE9-iWACaO1qlf3scI6gP1uy0FWXLBtTg
-2) start the raspberry after connecting it to a monitor, Log in with the username "mikilinux" and password "mikilinux" on LXQT, select your wireless network.
-3) Navigate to a random folder and copy the code from here by running "git clone https://github.com/micheleciondolo/CarbonaraGPT."
-4) Purchase a speaker like this one: https://www.amazon.it/dp/B0B8X6FLVZ?psc=1&ref=ppx_yo2ov_dt_b_product_details
-5) Connect your speaker using blueman-manager.
-6) Configure the settings section as described above.
-7) Download the Vosk folder from here: https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip, and place it in the CarbonaraGPT folder.
-8) Move model.conf from CarbonaraGPT to CarbonaraGPT/vosk-model-small-en-us-0.15/conf, replacing the previous one.
-9) Launch by running "python3 chatCucina.py" from the CarbonaraGPT folder.
+For any question don't hesitate and contact me on telegram @Luzzo1989
