@@ -151,7 +151,7 @@ def getFrasi(dialetto):
         finito = "ho finido amigu! si boles serrare s'aplicatzione, dime serrare, aiat a no faeddare nada e torro a iniziare."
     elif dialetto == "english":
         intro = "Please ask me a cooking question bro!"
-        carretta = "Now wait. I am slow as fuck"
+        carretta = "Now wait. I am a slow computer bro."
         dimmitutto = "Now you can tell me, motherfucker!"
         attendi = "Now you must wait for the artificial intelligence. Understand bro? Relax loser."
         mehaichiesto1 = "You asked me: "
