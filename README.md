@@ -103,7 +103,7 @@ TELEGRAM_TOKEN and TELEGRAM_CHAT_ID
 
 For chat GPT, create a conversation from your browser. Then, get the Conversation ID from the conversation link and access token through the link here. Then, fill in ACCESS_TOKEN_CHATGPT and CONVERSATION_ID_CHATGPT.
 
-In the folder, add the English folder of vosk, which you can download here https://alphacephei.com/vosk/models/vosk-model-small-en-0.15.zip , and name it "vosk-model-small-en-0.15". In the vosk folder, change the configuration so that it's not too strict: set beam=1 and reduce the max-active!
+In the folder, add the English folder of vosk, which you can download here https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip , and name it "vosk-model-small-en-us-0.15". In the vosk folder, change the configuration so that it's not too strict: set beam=1 and reduce the max-active!
 
 EXTREMELY IMPORTANT: After installing revChatGPT, go to /usr/local/lib/python3.x/dist-packages/revChatGPT and modify the file V1.py by adding the following string after the imports:
 
