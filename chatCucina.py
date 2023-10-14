@@ -314,8 +314,8 @@ def main():
     				if ripeti(ripetiString):
     					for frasetta in arrayFrasi:
     						riproduci(frasetta)
-    					arrayFrasi=[]
     					riproduci(sticazzi)
+    				arrayFrasi=[]
     else:
     	riproduci(gpt_response)
     closePreviousMusic()	
