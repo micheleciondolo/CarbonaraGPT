@@ -17,15 +17,14 @@ gpt_response = ""
 os.environ["CHATGPT_BASE_URL"] = "https://ai.fakeopen.com/api/"
 
 # SETTINGS
+
 bluetoothCard = ""
 mainFolder = ""
 TELEGRAM_TOKEN = ""
 TELEGRAM_CHAT_ID = ""
-ACCESS_TOKEN_CHATGPT = ""
-CONVERSATION_ID_CHATGPT=""
+ACCESS_TOKEN_CHATGPT =""
+CONVERSATION_ID_CHATGPT = ""
 
-
-PERSONE_A_CENA=2
 
 
 DIALETTO_PARLATO="romano" #OPZIONI romano/napoletano/sardo/pugliese/english
@@ -131,15 +130,15 @@ def getFrasi(dialetto):
         sticazzi = "si nun hai capito, non me ne frega 'n cazzo! continuo lo stesso"
         finito = "ho finito amico! si vuoi chiudere l'applicazione, diceme chiudi, aiat a non dì niente e ricomincio."
     elif dialetto == "napoletano":
-        intro = "Diceme 'a tue domanda 'e cucina, frate. Si vuoi parla 'e atre robè, diceme 'altrò!"
-        carretta = "Perfetto! Aro aspetta ca è lentissimo!"
-        dimmitutto = "Diceme tutto amico!"
-        attendi = "Attendi, sennò te meno! Te deve da risponde l'intelligenza artificiale"
-        mehaichiesto1 = "M'hai chiesto: "
-        mehaichiesto2 = "! benissimo frate!"
-        ripetiz = "se nun hai capito, diceme ripeti! Te ripeto 'e 'e sciute."
-        sticazzi = "se nun hai capito, non me ne frega un cazzo! jamme 'o stesso"
-        finito = "ho finito amico! si vuoi chiudere l'applicazione, diceme chiudi, aiat a non dicere niente e ricomincio."
+        intro = "Jamm Ja! Diceme la tua  domanda 'e cucina, wagliò. Si vuoi parla de altro, dimme altro!"
+        carretta = "Wewe napule e culur! Aro aspetta ca è lentissimo!"
+        dimmitutto = "Diceme tutto scugnizz!"
+        attendi = "Attendi, wagliò! Te deve da risponde l'intelligenza artificiale"
+        mehaichiesto1 = "M'agg chiest: "
+        mehaichiesto2 = "! benissimo fratm!"
+        ripetiz = "se nun hai capit, diceme ripeti! t'agg a ripete tutto wagliò."
+        sticazzi = "se nun hai capit, non me ne frega nu cazz! jamme 'o stesso"
+        finito = "agg finit cumpà! si vuoi chiudere l'applicazione, diceme chiudi, ca nisciun è fess."
     elif dialetto == "sardo":
         intro = "Dime sa tue domanda de cuina, frade. Si boles faeddare de atres cosas, dime 'altrò!"
         carretta = "Perfetu! Aiat a no istare fintzes issolu!"
@@ -174,7 +173,7 @@ def getGlobalFrasi(dialetto):
         ripetiString="ripeti"
         chiudiString="chiudi"
         devirisp1=". Devi rispondere in stretto dialetto "
-        devirisp2=", con Ingredienti con i dosaggi per "+str(PERSONE_A_CENA)+" e la lista dei passaggi però!"
+        devirisp2=", con Ingredienti con i dosaggi e la lista dei passaggi però!"
         ecco="Ecco la tua ricetta:"
         modelFolder="vosk-model-small-it-0.22"
         codice_lang="it"
@@ -185,7 +184,7 @@ def getGlobalFrasi(dialetto):
         altroString = "other"
         ripetiString="repeat"
         chiudiString="close"
-        devirisp1=". Please answer in strict london slang, with Ingredients in doses for "+str(PERSONE_A_CENA)+" and steps "
+        devirisp1=". Please answer in strict london slang, with Ingredients in doses and steps "
         devirisp2=" bro!"
         ecco="Here is your recipe:"
         modelFolder="vosk-model-small-en-us-0.15"
